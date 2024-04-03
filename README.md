@@ -14,7 +14,7 @@ In the readme file you'll find installation instructions and general things abou
 
 1. Install the _raw_ hazrunner file.
 
-2.Copy that hazrunner file into the directory of your project.
+2. Copy that hazrunner file into the directory of your project.
 
 3. Open the newly copied hazrunner file and execute `hazr -r`
 
