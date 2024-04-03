@@ -1,4 +1,8 @@
 _look in the wikis for documentation_
-# How hazmat works
+# Hazmat, a lovely, peaceful, fufilling programming language with concise, clear, and comprehensive error messages
+<small>April fools!<small>
+![HZ](https://github.com/soupScript/Hazmat/assets/120066246/7f70076a-aa6b-4379-a1d3-d5ca512b09b4)
 
-You can write code in any type of text file that is readable by python. Just make sure that when you make a project, you either know its full path, or have a runner file in the same directory as the code.
+In the readme file you'll find installation instructions and general things about the language, but no actual documentation. If you don't know where the documentation is, look at the first line of this readme file.
+
+
