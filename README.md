@@ -6,4 +6,19 @@ _look in the wikis for documentation_
 
 In the readme file you'll find installation instructions and general things about the language, but no actual documentation. If you don't know where the documentation is, look at the first line of this readme file.
 
+<hr>
+
+
+**Installation instructions:**
+
+
+1. Install the _raw_ hazrunner file.
+
+2.Copy that hazrunner file into the directory of your project.
+
+3. Open the newly copied hazrunner file and execute `hazr -r`
+
+4. When prompted, input the filename. If the hazrunner project is not in the file's directory, input the file**path**
+
+
 
