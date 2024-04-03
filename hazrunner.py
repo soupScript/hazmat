@@ -13,13 +13,12 @@ def gtype(val):
     if len(val) > 1 and val[0] == '"' and val[-1] == '"':
                         val = str(val)[1:-1]
                         return val
-    elif "." not in str(val) and val != 'True' and str(val) != 'False' and str(val).strip()[0] != '!': 
+    elif "." not in val and val != 'True' and val != 'False' and val.strip()[0] != '!': 
         try:
-
             val = int(val)
             return val
         except:
-            #print("TYPE ERROR!!!int")
+            print("TYPE ERROR!!!int")
             return val
     elif "." in val and val != 'True' and val != 'False' and val[0] != '!':
         try:
