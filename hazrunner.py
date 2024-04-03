@@ -9,6 +9,40 @@ fil = ""
 prefuncs.update({"#println": print})
 prefuncs.update({"#getln": input})
 
+def gtype(val):
+    if len(val) > 1 and val[0] == '"' and val[-1] == '"':
+                        val = str(val)[1:-1]
+                        return val
+    elif "." not in str(val) and val != 'True' and str(val) != 'False' and str(val).strip()[0] != '!': 
+        try:
+
+            val = int(val)
+            return val
+        except:
+            #print("TYPE ERROR!!!int")
+            return val
+    elif "." in val and val != 'True' and val != 'False' and val[0] != '!':
+        try:
+            val = float(val)
+            return val
+        except:
+            #print("TYPE ERROR!!!float")
+            return val
+    elif val == 'True' or val == 'False':
+        if val == 'True':
+            val = True
+            return val
+        else:
+            val = False
+            return val
+    elif val.strip()[0] == '!':
+        return variables.get(val)
+    else:
+         print("TYPE ERROR!!!else")
+         return val
+        
+    
+
 while fil != "end" and fil != "^C":
     fil = input("")
     if fil.strip() == "hazr -r":
@@ -28,36 +62,24 @@ while fil != "end" and fil != "^C":
                 statestr = ""
                 counter = 0
                 while counter < len(statearr):
-                    if statearr[counter][0] == "!":
-                        statearr[counter] = statearr[counter].strip()
-                        statearr[counter] = variables.get(statearr[counter])
-                        statestr = statestr + statearr[counter]
+                    if statearr[counter] != statearr[1]:
+                        statearr[counter] = gtype(statearr[counter])
+                        statestr = statestr+ f"{statearr[counter]}"
                         counter+=1
                     else:
-                        statestr = statestr + statearr[counter]
-                        counter+=1
+                         statestr = statestr+ f"{statearr[counter]}"
+                         counter+=1
                 if eval(statestr):
                     do = rfile[rfile.index("{", reader)+1:rfile.index("|", reader)]
                     if do in prefuncs:
                         argsff = rfile[rfile.index("|", reader)+1:rfile.index("}", reader)].split(",")
-                        
-                       
-
                         checkfstringc = 0
                         while checkfstringc < len(argsff):
-                            if argsff[checkfstringc][0] == '"' and argsff[checkfstringc][len(argsff[checkfstringc])-1] == '"':
-                                argsff[checkfstringc] = argsff[checkfstringc][1:len(argsff)-2]
-                                checkfstringc+=1
-                            elif argsff[checkfstringc][0] == '!':
-                                argsff[checkfstringc] = variables.get(argsff[checkfstringc])
-                                checkfstringc+=1
+                            argsff[checkfstringc] = gtype(argsff[checkfstringc])
+                            checkfstringc+=1
                         prefuncs.get(do)(*argsff)
-
-
-
-
                     else:
-                        print(do)
+                        print(do, "0.1")
                     
                 else:
                     print("Nae!")
@@ -72,10 +94,13 @@ while fil != "end" and fil != "^C":
                     cvattr = s.split("=")
                     variable_name = cvattr[0].strip()
                     variable_value = cvattr[1].strip()
-                    if len(variable_value) > 1 and variable_value[0] == '"' and variable_value[-1] == '"':
-                        variable_value = variable_value[1:-1]
+                    variable_value = gtype(variable_value)
 
-                    variables[variable_name] = variable_value
+                    
+
+
+                    if variable_name not in variables:
+                         variables.update({variable_name:variable_value})
                     finish(";")
                 
                         
@@ -92,12 +117,8 @@ while fil != "end" and fil != "^C":
                 gargsarr = gargs.split(',')
                 checkfstringc = 0
                 while checkfstringc < len(gargsarr):
-                    if gargsarr[checkfstringc][0] == '"' and gargsarr[checkfstringc][len(gargsarr[checkfstringc])-1] == '"':
-                        gargsarr[checkfstringc] = gargsarr[checkfstringc][1:len(gargsarr)-2]
-                        checkfstringc+=1
-                    elif gargsarr[checkfstringc][0] == '!':
-                        gargsarr[checkfstringc] = variables.get(gargsarr[checkfstringc])
-                        checkfstringc+=1
+                    gargsarr[checkfstringc] = gtype(gargsarr[checkfstringc])
+                    checkfstringc+=1
 
                 if name in prefuncs:
                     prefuncs[name](*gargsarr)
@@ -106,6 +127,10 @@ while fil != "end" and fil != "^C":
 
             reader+=1
         print("\n=====FINISHED=====\n")
+
+
+
+
 
 
 
