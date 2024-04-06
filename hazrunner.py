@@ -5,9 +5,16 @@ prefuncs = {}
 reader = 0
 fil = ""
 
+#predefined hazmat-specific functions:
+
+def printnoend(args):
+  print(args, end="")
+  
+
 
 prefuncs.update({"#println": print})
 prefuncs.update({"#getln": input})
+prefuncs.update({"#print":printnoend})
 
 def gtype(val):
     if len(val) > 1 and val[0] == '"' and val[-1] == '"':
@@ -78,14 +85,27 @@ while fil != "end" and fil != "^C":
                             checkfstringc+=1
                         prefuncs.get(do)(*argsff)
                     else:
-                        print(do, "0.1")
+                        pass
+                        #IF DO IN DEFUNCS
                     
                 else:
-                    print("Nae!")
+                    if "else{" in rfile:
+                        finish("else{")
+                        do = rfile[rfile.index("{", reader)+1:rfile.index("|", reader)]
+                        if do in prefuncs:
+                            argsff = rfile[rfile.index("|", reader)+1:rfile.index("}", reader)].split(",")
+                            checkfstringc = 0
+                            while checkfstringc < len(argsff):
+                                argsff[checkfstringc] = gtype(argsff[checkfstringc])
+                                checkfstringc+=1
+                            prefuncs.get(do)(*argsff)
+                        else:
+                            pass#IF DO IN DEFUNCS
+
 
                 
 
-                finish("}/end")
+                finish("};")
             
             if rfile[reader] == "!":
                 s = rfile[reader: rfile.index(";", reader)]
@@ -100,6 +120,8 @@ while fil != "end" and fil != "^C":
 
                     if variable_name not in variables:
                          variables.update({variable_name:variable_value})
+                    else:
+                        variables[variable_name]=variable_value
                     finish(";")
                 
                         
@@ -126,7 +148,6 @@ while fil != "end" and fil != "^C":
 
             reader+=1
         print("\n=====FINISHED=====\n")
-
 
 
 
