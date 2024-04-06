@@ -1,6 +1,7 @@
 _look in the wikis for documentation_
 # Hazmat, a lovely, peaceful, fufilling programming language with concise, clear, and comprehensive error messages
-<p font-family="font-size:7px">April Fools's!</p>
+<p style="font-family: Arial; font-size: 7px;">April Fools'!</p>
+
 
 ![HZ](https://github.com/soupScript/Hazmat/assets/120066246/7f70076a-aa6b-4379-a1d3-d5ca512b09b4)
 
