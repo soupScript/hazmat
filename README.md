@@ -21,7 +21,10 @@ In the readme file you'll find installation instructions and general things abou
 4. When prompted, input the filename. If the hazrunner project is not in the file's directory, input the file**path**
 
 <hr>
+
 **PLEASE REPORT BUGS AND TEST THOROUGHLY!**
+
+<hr>
 
 
 
