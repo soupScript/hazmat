@@ -24,38 +24,30 @@ prefuncs.update({"#getln": input})
 prefuncs.update({"#print":printnoend})
 prefuncs.update({"#moo":saymoo})
 
+variables = {"x": 5, "y": "hello", "z": 3.14, "flag": True}
+
 def gtype(val):
-    if len(val) > 1 and val[0] == '"' and val[-1] == '"':
-                        val = str(val)[1:-1]
-                        return val
-    elif "." not in val and val != 'True' and val != 'False' and val.strip()[0] != '!': 
-        try:
-            val = int(val)
-            return val
-        except:
-            print("TYPE ERROR!!!int")
-            return val
-    elif "." in val and val != 'True' and val != 'False' and val[0] != '!':
-        try:
-            val = float(val)
-            return val
-        except:
-            #print("TYPE ERROR!!!float")
-            return val
-    elif val == 'True' or val == 'False':
-        if val == 'True':
-            val = True
-            return val
-        else:
-            val = False
-            return val
-    elif val.strip()[0] == '!':
-        return variables.get(val)
-    else:
-         print("TYPE ERROR!!!else")
-         return val
-        
+    global variables
     
+    if val.startswith('"') and val.endswith('"'):
+        return val[1:-1]
+
+    elif val.startswith('!'):
+        if val in variables:
+            return variables[val]
+        else:
+            return "variable not found"
+
+    elif val.isdigit():
+        return int(val)
+    elif val.replace('.', '', 1).isdigit():
+        return float(val)
+    elif val.lower() in ['true', 'false']:
+        return bool(val)
+
+    return "unknown"
+
+
 
 while fil != "end" and fil != "^C":
     fil = input("")
@@ -167,6 +159,10 @@ while fil != "end" and fil != "^C":
             reader+=1
            
         print("\n=====FINISHED=====\n")
+
+
+
+
 
 
 
